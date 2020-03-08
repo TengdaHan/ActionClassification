@@ -3,6 +3,10 @@
 Unofficial implementation of S3D from Xie et al. 
 [Rethinking Spatiotemporal Feature Learning For Video Understanding](https://arxiv.org/abs/1712.04851) in pytorch v1.3.1
 
+### Files
+* `s3d.py` is the feature extractor
+* `model.py` gives an example of classifier using S3D backbone. 
+
 ### Notes
 
 * S3D-G will come later. 
