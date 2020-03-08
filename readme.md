@@ -1,4 +1,4 @@
-### s3d-pytorch
+# s3d-pytorch
 
 Unofficial implementation of S3D from Xie et al. 
 [Rethinking Spatiotemporal Feature Learning For Video Understanding](https://arxiv.org/abs/1712.04851) in pytorch v1.3.1
