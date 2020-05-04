@@ -2,6 +2,14 @@
 import torch
 import torch.nn as nn
 
+# tiny differences with original tensorflow s3d:
+# 1. torch.nn.BatchNorm3d:
+#    we use: pytorch default - torch.nn.BatchNorm3d(num_features, eps=1e-05, momentum=0.1)
+#    tensorflow version: torch.nn.BatchNorm3d(num_features, eps=1e-3, momentum=0.001) -- effect: running stat updates slower
+# 2. initialization:
+#    we use: pytorch default - torch.nn.init.kaiming_normal_(mode='fan_in', nonlinearity='leaky_relu')
+#    tensorflow version: equivalent to pytorch kaiming_normal(mode='fan_in', nonlinearity='leaky_relu'),
+#                        but truncated within 2 std
 
 class Unit3D(nn.Module):
     def __init__(self, in_channels, out_channels, kernel_size=1, stride=1, padding=0):
@@ -13,7 +21,7 @@ class Unit3D(nn.Module):
         self.relu = nn.ReLU(inplace=True)
 
         # init
-        self.conv.weight.data.normal_(mean=0, std=0.01)
+        nn.init.kaiming_normal_(self.conv.weight)
         self.bn.weight.data.fill_(1)
         self.bn.bias.data.zero_()
             
@@ -98,7 +106,7 @@ class InceptionI3d(nn.Module):
         # 'Predictions',
     )
 
-    def __init__(self, final_endpoint='Mixed_5c', in_channels=3,):
+    def __init__(self, final_endpoint='Mixed_5c', first_channel=3):
         """Initializes I3D model instance.
         Args:
           final_endpoint: The model contains many possible endpoints.
@@ -122,7 +130,7 @@ class InceptionI3d(nn.Module):
 
         ####################################################
 
-        self.Conv_1a = Unit3D(in_channels, 64, kernel_size=7, stride=2, padding=3)
+        self.Conv_1a = Unit3D(first_channel, 64, kernel_size=7, stride=2, padding=3)
         self.block1 = nn.Sequential(self.Conv_1a) # (64, 32, 112, 112)
         if self._final_endpoint == 'Conv3d_1a_7x7': return
 
@@ -192,3 +200,7 @@ class InceptionI3d(nn.Module):
         if self._final_endpoint == 'Mixed_4f': return x 
         x = self.block5(x)
         return x
+
+
+if __name__=='__main__':
+    i3d = InceptionI3d()

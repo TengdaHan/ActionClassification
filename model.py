@@ -1,17 +1,18 @@
 import torch.nn as nn
 import torch
-from s3d import S3D
+from backbone.select_backbone import select_backbone
 
 class Classifier(nn.Module):
-    def __init__(self, dropout=0.5, num_class=400):
+    def __init__(self, net='s3d', dropout=0.5, num_class=400):
         super(Classifier, self).__init__()
-        self.backbone = S3D(input_channel=3)
+        self.backbone, self.param = select_backbone(net)
+        feature_size = self.param['feature_size']
         
         self.AvgPool = nn.AdaptiveAvgPool3d(output_size=(1,1,1))
         self.Dropout = nn.Dropout3d(dropout)
-        self.Conv = nn.Conv3d(1024, num_class, kernel_size=1, stride=1, bias=True)
+        self.Conv = nn.Conv3d(feature_size, num_class, kernel_size=1, stride=1, bias=True)
 
-        nn.init.normal_(self.Conv.weight.data, mean=0, std=0.01) # original s3d uses truncated normal within 2 std
+        nn.init.normal_(self.Conv.weight.data, mean=0, std=0.01)
         nn.init.constant_(self.Conv.bias.data, 0.0)
 
     def forward(self, x):

@@ -1,21 +1,24 @@
 # Video Backbone
 
 ### What's this?
-Implementation of common video feature extractors with some benchmarks, in PyTorch v1.3.1.
+Benchmark of video action classification for common CNN architectures. Implemented in PyTorch v1.3.1.
 
-### Content
-
-* S3D from Xie et al. [Rethinking Spatiotemporal Feature Learning For Video Understanding](https://arxiv.org/abs/1712.04851)
-* S3D-G comming soon
+### Supported architectures
+* ResNet-2d3d (18, 34, 50, ...)
+* ResNet-3d (18, 34, 50)
+* I3D
+* S3D, S3D-G
 
 ### Files
-* `s3d.py` is the S3D feature extractor
-* `model.py` gives an example of classifier using S3D backbone. 
+* `backbone/` has all backbone models
+* `model.py` gives an example of classifier with S3D backbone. 
 
 ### Notes
-* more benchmarks will come later
+* benchmarks will come soon
 
-### Reference
-* S3D paper: [Rethinking Spatiotemporal Feature Learning For Video Understanding](https://arxiv.org/abs/1712.04851) 
-* S3D/S3D-G tensorflow implementation: [here](https://github.com/tensorflow/models/blob/master/research/slim/nets/s3dg.py)
-* S3D code is modified from [here](https://github.com/qijiezhao/s3d.pytorch) with tiny corrections
+### Link
+* ResNet-2d3d is used in [SlowFast](https://github.com/facebookresearch/SlowFast),
+[DPC](https://github.com/TengdaHan/DPC), etc.
+* ResNet-3d is used in many papers, early ones like [Hara et al.](https://arxiv.org/abs/1711.09577)
+* I3D from [Carreira and Zisserman](https://arxiv.org/abs/1705.07750)
+* S3D/S3D-G from [Xie et al.](https://arxiv.org/abs/1712.04851)
