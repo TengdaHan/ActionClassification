@@ -3,11 +3,19 @@
 ### What's this?
 Benchmark of video action classification for common CNN architectures. Implemented in PyTorch v1.3.1.
 
-### Supported architectures
-* ResNet-2d3d (18, 34, 50, ...)
-* ResNet-3d (18, 34, 50)
-* I3D
-* S3D, S3D-G
+### Supported networks
+
+| Network | #parameters (exclude final classifier) |
+|----|----|
+| 2d3d-ResNet18	| 31.82 M |
+| 2d3d-ResNet34	| 60.80 M |
+| 2d3d-ResNet50	| 44.74 M |
+| 3d-ResNet18	| 33.15 M |
+| 3d-ResNet34	| 63.46 M |
+| 3d-ResNet50	| 46.14 M |
+| I3D	| 12.29 M |
+| S3D	| 7.910 M |
+| S3D-G | 9.098 M |
 
 ### Files
 * `backbone/` has all backbone models
