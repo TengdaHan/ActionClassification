@@ -1,7 +1,7 @@
-# Video Backbone
+# Action Classification
 
 ### What's this?
-Benchmark of video action classification for common CNN architectures. Implemented in PyTorch v1.3.1.
+A benchmark of video action classification for common CNN architectures. Implemented in PyTorch v1.2, recent version should also work.
 
 ### Supported networks
 
