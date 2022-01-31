@@ -24,7 +24,7 @@ class Classifier(nn.Module):
 
 if __name__ == '__main__':
     classifier = Classifier()
-    data = torch.randn(4,3,64,224,224) # B,T,C,H,W
+    data = torch.randn(4,3,64,224,224) # B,C,T,H,W
     logit = classifier(data)
     print(logit.size())
 
